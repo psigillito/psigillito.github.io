@@ -3,14 +3,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<head></head>
 <body>
+	<input type="radio" name="display" value="lines" id="lines">Velocity Lines</input>
+	<input type="radio" name="display" value="pixels" id="pixels" checked="checked">Pixels</input>
+	<input type="radio" name="display" value="pressure" id="pressure">Pressure</input>
+
+	<br>
 	<canvas id="myCanvas" style="border:2px solid"></canvas>	
 <script>
-
 	var canvas = document.getElementById("myCanvas");
 	var c = canvas.getContext("2d");	
 	canvas.width = 800;
 	canvas.height = 800;
-	var res = 80;
+	var res = 100;
 	var cellPixelWidth = canvas.width / res;
 	canvas.focus();
 
@@ -108,23 +112,62 @@
 	function draw() 
 	{
 		c.clearRect(0, 0, canvas.width, canvas.height);
-		c.fillStyle = "#FF4400";		
-		id = c.getImageData(0,0, canvas.width, canvas.height)
-		c.putImageData(id, 0, 0);
+		c.rect(0,0,canvas.width, canvas.height);
+		c.fillStyle = "#000000";		
+		c.fill();
 
-		for(i = 0; i < res; ++i) //for each row
+		if(document.getElementById('pressure').checked)
 		{
-			for(j = 0; j < res; ++j)
+
+		}
+		else if(document.getElementById('pixels').checked)
+		{
+			for(i = 0; i < res; ++i) //for each row
 			{
-				c.beginPath();
-				var r = scene.fluid.u[i][j]; 
-				var g = scene.fluid.v[i][j];
-				var b = 0;
-    			
-				c.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';  
-				c.fillRect(j*cellPixelWidth, i*cellPixelWidth, cellPixelWidth, cellPixelWidth);
-				c.stroke();
-			}	
+				for(j = 0; j < res; ++j)
+				{			
+					c.beginPath();
+					var r = 0; 
+					var g = 0; 
+					var b = 0;
+
+					//color application based on color wheel from https://www.britannica.com/science/color/The-visible-spectrum
+					if( scene.fluid.u[i][j] < 0 )
+					{
+						g += Math.abs(scene.fluid.u[i][j] * 10);
+						b += Math.abs(scene.fluid.u[i][j] * 10);
+						//apply cyan to color
+					}
+					else{
+						r +=  Math.abs(scene.fluid.u[i][j] * 10);
+						//apply red
+					}
+
+					if(scene.fluid.v[i][j] < 0 ) //up
+					{
+						//apply yellow
+						r += Math.abs(scene.fluid.v[i][j] * 10);
+						g += Math.abs(scene.fluid.v[i][j] * 10);
+
+					}
+					else //down
+					{
+						//apply purple
+						r += Math.abs(scene.fluid.v[i][j] * 10);
+						b += Math.abs(scene.fluid.v[i][j] * 10);
+					}
+
+					c.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';  
+					c.fillRect(j*cellPixelWidth, i*cellPixelWidth, cellPixelWidth, cellPixelWidth);
+					c.stroke();
+				}	
+			}
+		}
+
+
+		else if(document.getElementById('lines').checked)
+		{
+			drawVelocityLines();
 		}
 
 		//draw particle 
@@ -133,7 +176,7 @@
 		c.fillStyle = "#FF4400";
 		c.fill();
 		c.stroke();
-		drawVelocityLines();
+
 	}
 
 	function simulate() 
@@ -145,7 +188,6 @@
 		movementValueY = sampleSurroundingVelocities(scene.particleX, scene.particleY, 'v');
 		scene.particleX += movementValueX;
 		scene.particleY += movementValueY;	
-		//scene.frameNr++;
 	}
 
 	function update() {
@@ -255,7 +297,6 @@
 				c.fill();
 				c.stroke();
 			}
-		
 		}
 	}
 
@@ -279,12 +320,14 @@
 	{
 		if(velocityType == 'u')
 		{
-			var xIndex = Math.floor(pixelX/cellPixelWidth);
-			var yIndex = Math.floor(pixelY/cellPixelWidth);
+			var xIndex = Math.abs(Math.floor(pixelX/cellPixelWidth));
+			var yIndex = Math.abs(Math.floor(pixelY/cellPixelWidth));
 			
 			var xNextIndex = xIndex+1 < scene.fluid.rowCount    ?  xIndex+1 : xIndex;
-			var uVelocityLeft = scene.fluid.u[yIndex][xIndex+1];
-			var uVelocityRight = scene.fluid.u[yIndex][xIndex];
+			var uVelocityLeft =  (scene.fluid.u[yIndex] === undefined || scene.fluid.u[yIndex][xNextIndex] === undefined) 
+				? 0 : scene.fluid.u[yIndex][xNextIndex];
+			var uVelocityRight = (scene.fluid.u[yIndex] === undefined || scene.fluid.u[yIndex][xIndex] === undefined)
+				? 0 : scene.fluid.u[yIndex][xIndex];
 
 			var insideCellPositionX = pixelX % cellPixelWidth;
 			var leftWeight =  1.0 - ( (cellPixelWidth - insideCellPositionX) / cellPixelWidth);
@@ -295,13 +338,15 @@
 		}
 		else
 		{
-			var xIndex = Math.floor(pixelX/cellPixelWidth);
-			var yIndex = Math.floor(pixelY/cellPixelWidth);
+			var xIndex = Math.abs(Math.floor(pixelX/cellPixelWidth));
+			var yIndex = Math.abs(Math.floor(pixelY/cellPixelWidth));
 			
 			var yNextIndex = yIndex+1 < scene.fluid.rowCount  ?  yIndex+1 : yIndex;
 
-			var vVelocityTop = scene.fluid.v[yIndex][xIndex];
-			var vVelocityBelow = scene.fluid.v[yNextIndex][xIndex];
+			var vVelocityTop =  (scene.fluid.v[yIndex] === undefined || scene.fluid.v[yIndex][xIndex] === undefined) 
+				? 0 : scene.fluid.v[yIndex][xIndex];
+			var vVelocityBelow = (scene.fluid.v[yNextIndex]=== undefined || scene.fluid.v[yNextIndex][xIndex] === undefined) 
+				? 0 : scene.fluid.v[yNextIndex][xIndex];
 			var insideCellPositionY = pixelY % cellPixelWidth;
 
 			var topWeight =  1.0 - ( (cellPixelWidth - insideCellPositionY) / cellPixelWidth);
@@ -315,18 +360,6 @@
 
 
 	function advectVelocity(dt){
-	//update advection 
-	//take velocity field and move it through itself 
-	//set new values to old
-	for(var i = 0; i < scene.fluid.rowCount; ++i)
-	{
-		for(var j = 0; j < scene.fluid.columnCount; ++j)
-		{
-			scene.fluid.newU[i][j] = scene.fluid.u[i][j];
-			scene.fluid.newV[i][j] = scene.fluid.v[i][j];
-		}
-	}
-
 	for(var i = 1; i < scene.fluid.rowCount-2; ++i)
 	{
 		for(var j = 1; j < scene.fluid.columnCount-2; ++j)
@@ -346,8 +379,8 @@
 				var v4 = scene.fluid.v[i+1][j+1];
 				var averageV = (v1+v2+v3+v4) * 0.25;
 
-				var oldPixelX = pixelX - (uVelocity %200) ;
-				var oldPixelY = pixelY - averageV;
+				var oldPixelX = pixelX - (uVelocity %10) ;
+				var oldPixelY = pixelY - (averageV %10);
 
 				var newVal = sampleSurroundingVelocities(oldPixelX,oldPixelY, 'u');
 				scene.fluid.newU[i][j] = newVal;
@@ -365,8 +398,8 @@
 				var u4 = scene.fluid.u[i-1][j+1];
 				var averageU = (u1+u2+u3+u4) * 0.25;
 
-				var oldPixelX = pixelX - averageU;
-				var oldPixelY = pixelY - (vVelocity % 200);
+				var oldPixelX = pixelX - (averageU % 100);
+				var oldPixelY = pixelY - (vVelocity % 100);
 
 				var newVal = sampleSurroundingVelocities(oldPixelX,oldPixelY, 'v');
 				scene.fluid.newV[i][j] = newVal;
