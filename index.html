@@ -1,19 +1,136 @@
-<!-- Simulation based on tutorial and code from: 
-	https://matthias-research.github.io/pages/tenMinutePhysics/17-fluidSim.pdf
-	https://github.com/matthias-research/pages/blob/master/tenMinutePhysics/17-fluidSim.html
--->
-
 <!DOCTYPE html>
 <html>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<head>
 		<link rel="stylesheet" href="styling.css">
 	</head>
-<body>
-	<input type="radio" name="display" value="lines" id="lines">Velocity Lines</input>
-	<input type="radio" name="display" value="pixels" id="pixels" checked="checked">Pixels</input>
+	<div class="header">
+		<h1>Philip Sigillito</h1>
+		<h2>psigillito@gmail.com | <a href="https://github.com/psigillito">GitHub</a> | <a href="https://www.linkedin.com/in/philipsigillito/">LinkedIn</a> </h2>
+		<h2></h2>
+		<div> 
+			Thank you for visiting my portfolio page! Down below you will see some of my past projects. Feel free to email me if interested in a formal resume or any questions. 
+		</div>
+	</div>
 	<br>
-	<canvas id="myCanvas" style="border:2px solid"></canvas>	
+	
+<div class="fluidSection">
+	<h2 style="text-align:center;">Interactive Fluid Simulation</h2>
+	<div class="options">
+		Interactive fluid simulation. Hold down left mouse button and drag to interact. Simulates an incompressible fluid using Navier Stokes equations. 
+		Velocity Lines option diplays decomposed velocity vectors for each cell of the grid. 
+		<br>
+		<input type="radio" name="display" value="lines" id="lines">Velocity Lines</input>
+		<input type="radio" name="display" value="pixels" id="pixels" checked="checked">Pixels</input>
+	</div>
+	<br>
+	<div style="justify-content: center;">
+		<canvas  id="myCanvas" style="border:2px solid;"></canvas>	
+	</div>
+</div>
+
+<body>
+	<div class="header">
+		<h1>Projects</h1>
+	</div>
+	<div id="paper-div" class="paper">
+		<div class="imageDesc">
+			<img id="IR Code" alt="IR Code" width="250" height="238"src="LLVMBlack.png">
+		</div>
+		<div class="textDesc">
+			I contributed to a research project using Clang and the LLVM compiler. We altered generated code blocks from the Clang front-end to imprint a 
+			unique watermark on compiled software. I wrote the optimization passes that alter the IR code blocks to apply the watermark. Clang and LLVM are both open-source with active communities. After completing this project, 
+			I made some modest contributions to Clang's formatter application.  
+			<br>
+			<a href="https://papers.academic-conferences.org/index.php/iccws/article/view/39">LLVM Paper</a>
+		</div>
+	</div>
+	
+	<div id="paper-div" class="paper">
+		<div class="imageDesc">
+			<img id="IR Code" alt="IR Code" width="250" height="250" src="byzantineKing.jpg">
+		</div>
+		<div class="textDesc">
+		<span style="vertical-align: middle;" class="textDesc">
+			Simulates a generic block-chain network where each node is its own flask server. The nodes 
+			communicate with each other through HTTP to send 'mined' blocks, propogate results, and verify each other. The simulation focuses on how byzantine failures 
+			impact network performance. This is when the node starts sending incorrect information (sometimes maliciously) but it is not apparent that the node is acting incorrectly. 
+			This is based on the byzantine general problem which is a commonly discussed issue in distributed voting systems. 
+			<br>
+			<a href="ByzantineNodesinBlockchain.pdf">Paper</a>
+		</div>
+	</div>
+	<br>
+
+	<div id="paper-div" class="paper">
+		<div class="imageDesc">
+			<img id="IR Code" alt="IR Code" width="250" height="250" src="openCL.png">
+		</div>
+		<div class="textDesc">
+		<span style="vertical-align: middle;" class="textDesc">
+			We measured how offloading parallelizable tasks to the GPU can improve performance. Using the GPU does require some overhead as there is a cost to sending the 
+			data and instructions to the GPU. Additionally, there is a cost to read the results back form the GPU. APIs for running code on the GPU such as OpenCL and Cuda  
+			give the developer the freedom to specify how the GPU runs: number of work groups, number of cores in each workgroup, etc. This project looked at what the 'tipping point'
+			is for when the overhead cost outweighs the benefit for offloading computation to the GPU. We also looked at parallelization on the CPU 
+			using OpenMP although this is not included in the report. 
+			<br>
+			<a href="OpenCLBenchmarking.pdf">Paper</a>
+		</span>
+		</div>
+	</div>
+	<br>
+
+	<div id="paper-div" class="paper">
+		<div class="imageDesc">
+			<img width="300" height="250" src="NeRF.JPG">
+		</div>
+		<div class="textDesc"> 
+		<span style="vertical-align: middle;" class="textDesc">
+			Neural radiance fields, NeRFs, combine the techniques of volumetric rendering with deep learning. These networks are trained on a static set of images of a scene at different angles and then 
+			train a convolutional network to generate new novel views of that scene. This allows for interesting applications such as generating 3D assets from a few static images. This paper builds a NeRF from 
+			scratch based on the original 2020 paper. 
+			<br>
+			<a href="NerfsSurvey.docx.pdf">Paper</a>
+		</span>
+		</div>
+	</div>
+	<br>
+	<div id="paper-div" class="paper">
+		<div class="imageDesc">
+			<img alt="IR Code" width="250" height="250" src="stars.jpg">
+		</div>
+		<div class="textDesc"> 
+			<span style="vertical-align: middle;" class="textDesc">
+				There are a lot of algorithms for identifying a star based on a limited view of its surrounding stars. These algorithms have a practical application 
+				for navigation especially for satellites determining their attitude. I implimented a novel algorithm from a 2017 paper that decomposes 
+				the surrounding stars into a hash table of values. The algorithm assigns each star a value based on its distance from the target star and assigns it
+				to a hash table based on its angle relative to the target star. The algorithm then uses Spearman correlation to compare our result against values in a database to determine a match. 
+				The project uses python with openCV to generate and parse star images. The sky2000 star catalog was used for the database comparison. 
+				<a href="PhilipSigillito-ProjectReport.pdf">Star Identification using OpenCV and Novel Algorithm</a>
+			</span>
+		</div>
+	</div>
+	<br>
+	<div id="paper-div" class="paper">
+		<div class="imageDesc">
+			<img width="250" height="250"src="Running.JPG">
+		</div>
+		<div class="textDesc"> 
+			<span style="vertical-align: middle;" class="textDesc">
+			I compared several different neural network architectures and how they perform when classifying human activities (running, sitting, walking, etc). 
+			The datasets consist of sensor readouts from accelerometers, gyroscopes, and electromagmetometers. I looked at convolutional and recurrent networks. 
+			Convolutional networks are good at understanding spatial relationships in a single time-step. This is why they are so popular in image classification. 
+			Recurrent networks are useful for learning temporal relationships. For example, in a video clip the convolutional layers would learn to identify objects in each 
+			frame while the recurrent layers would learn the relationship between consecutive frames. 
+			<br> 
+			Serveral different recurrent network types were tested: RNN, LSTM, GRU, and BiLSTM. I found that using a convolutional network which feeds into 
+			a self-regulating recurrent network is the most performant and can achieve over 98 percent accuracy against validation data.
+			<br>
+			<a href="Sigillito-Philip-ProjectFinalReport.pdf">Paper</a>
+			</span>
+		</div>
+	</div>
+	<br>
 <script>
 	var canvas = document.getElementById("myCanvas");
 	var c = canvas.getContext("2d");	
@@ -172,7 +289,7 @@
 		}
 
 		//draw particle 
-		
+
 		c.beginPath();
 		c.arc(scene.particleX, scene.particleY, 10, 0, 2 *Math.PI);
 		c.fillStyle = "#FF4400";
@@ -262,7 +379,11 @@
 	}
 
 	canvas.addEventListener('mousedown', event => {
-		startDrag(event.x, event.y);
+
+		var rt = window.innerWidth - canvas.getBoundingClientRect().right; 
+		var down = canvas.getBoundingClientRect().top; 
+		
+		startDrag(event.x - rt, event.y - down);
 	});
 
 	canvas.addEventListener('mouseup', event => {
@@ -270,7 +391,9 @@
 	});
 
 	canvas.addEventListener('mousemove', event => {
-		drag(event.x, event.y);
+		var down = canvas.getBoundingClientRect().top; 
+		var rt = window.innerWidth - canvas.getBoundingClientRect().right; 
+		drag(event.x - rt, event.y - down);
 	});
 
 
