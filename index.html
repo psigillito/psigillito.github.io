@@ -53,7 +53,7 @@
 		<div class="textDesc">
 		<span style="vertical-align: middle;" class="textDesc">
 			Simulates a generic block-chain network where each node is its own flask server. The nodes 
-			communicate with each other through HTTP to send 'mined' blocks, propogate results, and verify each other. The simulation focuses on how byzantine failures 
+			communicate with each other through HTTP to send 'mined' blocks, propagate results, and verify each other. The simulation focuses on how byzantine failures 
 			impact network performance. This is when the node starts sending incorrect information (sometimes maliciously) but it is not apparent that the node is acting incorrectly. 
 			This is based on the byzantine general problem which is a commonly discussed issue in distributed voting systems. 
 			<br>
@@ -69,7 +69,7 @@
 		<div class="textDesc">
 		<span style="vertical-align: middle;" class="textDesc">
 			We measured how offloading parallelizable tasks to the GPU can improve performance. Using the GPU does require some overhead as there is a cost to sending the 
-			data and instructions to the GPU. Additionally, there is a cost to read the results back form the GPU. APIs for running code on the GPU such as OpenCL and Cuda  
+			data and instructions to the GPU. Additionally, there is a cost to read the results back from the GPU. APIs for running code on the GPU such as OpenCL and Cuda  
 			give the developer the freedom to specify how the GPU runs: number of work groups, number of cores in each workgroup, etc. This project looked at what the 'tipping point'
 			is for when the overhead cost outweighs the benefit for offloading computation to the GPU. We also looked at parallelization on the CPU 
 			using OpenMP although this is not included in the report. 
@@ -102,7 +102,7 @@
 		<div class="textDesc"> 
 			<span style="vertical-align: middle;" class="textDesc">
 				There are a lot of algorithms for identifying a star based on a limited view of its surrounding stars. These algorithms have a practical application 
-				for navigation especially for satellites determining their attitude. I implimented a novel algorithm from a 2017 paper that decomposes 
+				for navigation especially for satellites determining their attitude. I implemented a novel algorithm from a 2017 paper that decomposes 
 				the surrounding stars into a hash table of values. The algorithm assigns each star a value based on its distance from the target star and assigns it
 				to a hash table based on its angle relative to the target star. The algorithm then uses Spearman correlation to compare our result against values in a database to determine a match. 
 				The project uses python with openCV to generate and parse star images. The sky2000 star catalog was used for the database comparison. 
@@ -118,12 +118,12 @@
 		<div class="textDesc"> 
 			<span style="vertical-align: middle;" class="textDesc">
 			I compared several different neural network architectures and how they perform when classifying human activities (running, sitting, walking, etc). 
-			The datasets consist of sensor readouts from accelerometers, gyroscopes, and electromagmetometers. I looked at convolutional and recurrent networks. 
+			The datasets consist of sensor readouts from accelerometers, gyroscopes, and magnetometer. I looked at convolutional and recurrent networks. 
 			Convolutional networks are good at understanding spatial relationships in a single time-step. This is why they are so popular in image classification. 
 			Recurrent networks are useful for learning temporal relationships. For example, in a video clip the convolutional layers would learn to identify objects in each 
 			frame while the recurrent layers would learn the relationship between consecutive frames. 
 			<br> 
-			Serveral different recurrent network types were tested: RNN, LSTM, GRU, and BiLSTM. I found that using a convolutional network which feeds into 
+			Several different recurrent network types were tested: RNN, LSTM, GRU, and BiLSTM. I found that using a convolutional network which feeds into 
 			a self-regulating recurrent network is the most performant and can achieve over 98 percent accuracy against validation data.
 			<br>
 			<a href="Sigillito-Philip-ProjectFinalReport.pdf">Paper</a>
