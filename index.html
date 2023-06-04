@@ -18,7 +18,7 @@
 	<h2 style="text-align:center;">Interactive Fluid Simulation</h2>
 	<div class="options">
 		Interactive fluid simulation. Hold down left mouse button and drag to interact. Simulates an incompressible fluid using Navier Stokes equations. 
-		Velocity Lines option diplays decomposed velocity vectors for each cell of the grid. 
+		Velocity Lines option diplays decomposed velocity vectors for each cell of the grid. (Currently not mobile friendly)
 		<br>
 		<input type="radio" name="display" value="lines" id="lines">Velocity Lines</input>
 		<input type="radio" name="display" value="pixels" id="pixels" checked="checked">Pixels</input>
@@ -34,6 +34,7 @@
 		<h1>Projects</h1>
 	</div>
 	<div id="paper-div" class="paper">
+		<h2 class="header" style="text-align:center;">Watermarking software using the LLVM compiler</h2>
 		<div class="imageDesc">
 			<img id="IR Code" alt="IR Code" width="250" height="238"src="LLVMBlack.png">
 		</div>
@@ -42,17 +43,18 @@
 			unique watermark on compiled software. I wrote the optimization passes that alter the IR code blocks to apply the watermark. Clang and LLVM are both open-source with active communities. After completing this project, 
 			I made some modest contributions to Clang's formatter application.  
 			<br>
-			<a href="https://papers.academic-conferences.org/index.php/iccws/article/view/39">LLVM Paper</a>
+			<a href="https://papers.academic-conferences.org/index.php/iccws/article/view/39">Paper</a>
 		</div>
 	</div>
 	
 	<div id="paper-div" class="paper">
+		<h2 class="header" style="text-align:center;">Simulate blockchain network with byzantine nodes</h2>
 		<div class="imageDesc">
 			<img id="IR Code" alt="IR Code" width="250" height="250" src="byzantineKing.jpg">
 		</div>
 		<div class="textDesc">
 		<span style="vertical-align: middle;" class="textDesc">
-			Simulates a generic block-chain network where each node is its own flask server. The nodes 
+			Simulates a generic blockchain network where each node is its own flask server. The nodes 
 			communicate with each other through HTTP to send 'mined' blocks, propagate results, and verify each other. The simulation focuses on how byzantine failures 
 			impact network performance. This is when the node starts sending incorrect information (sometimes maliciously) but it is not apparent that the node is acting incorrectly. 
 			This is based on the byzantine general problem which is a commonly discussed issue in distributed voting systems. 
@@ -63,16 +65,17 @@
 	<br>
 
 	<div id="paper-div" class="paper">
+		<h2 class="header" style="text-align:center;">Benchmark GPU optimization using OpenCL</h2>
 		<div class="imageDesc">
 			<img id="IR Code" alt="IR Code" width="250" height="250" src="openCL.png">
 		</div>
 		<div class="textDesc">
 		<span style="vertical-align: middle;" class="textDesc">
-			We measured how offloading parallelizable tasks to the GPU can improve performance. Using the GPU does require some overhead as there is a cost to sending the 
+			We measured how offloading parallelizable tasks to the GPU can improve performance. Using the GPU requires some overhead as there is a cost to sending the 
 			data and instructions to the GPU. Additionally, there is a cost to read the results back from the GPU. APIs for running code on the GPU such as OpenCL and Cuda  
 			give the developer the freedom to specify how the GPU runs: number of work groups, number of cores in each workgroup, etc. This project looked at what the 'tipping point'
 			is for when the overhead cost outweighs the benefit for offloading computation to the GPU. We also looked at parallelization on the CPU 
-			using OpenMP although this is not included in the report. 
+			using OpenMP although this is not included in the paper. 
 			<br>
 			<a href="OpenCLBenchmarking.pdf">Paper</a>
 		</span>
@@ -81,6 +84,7 @@
 	<br>
 
 	<div id="paper-div" class="paper">
+		<h2 class="header" style="text-align:center;"> rending using NeRF neural networks</h2>
 		<div class="imageDesc">
 			<img width="300" height="250" src="NeRF.JPG">
 		</div>
@@ -96,6 +100,7 @@
 	</div>
 	<br>
 	<div id="paper-div" class="paper">
+		<h2 class="header" style="text-align:center;">Identifying stars using OpenCV</h2>
 		<div class="imageDesc">
 			<img alt="IR Code" width="250" height="250" src="stars.jpg">
 		</div>
@@ -106,12 +111,13 @@
 				the surrounding stars into a hash table of values. The algorithm assigns each star a value based on its distance from the target star and assigns it
 				to a hash table based on its angle relative to the target star. The algorithm then uses Spearman correlation to compare our result against values in a database to determine a match. 
 				The project uses python with openCV to generate and parse star images. The sky2000 star catalog was used for the database comparison. 
-				<a href="PhilipSigillito-ProjectReport.pdf">Star Identification using OpenCV and Novel Algorithm</a>
+				<a href="StarReport.pdf">Paper</a>
 			</span>
 		</div>
 	</div>
 	<br>
 	<div id="paper-div" class="paper">
+		<h2 class="header" style="text-align:center;">Human activity recognition with convolutional and recurrent networks</h2>
 		<div class="imageDesc">
 			<img width="250" height="250"src="Running.JPG">
 		</div>
@@ -123,6 +129,7 @@
 			Recurrent networks are useful for learning temporal relationships. For example, in a video clip the convolutional layers would learn to identify objects in each 
 			frame while the recurrent layers would learn the relationship between consecutive frames. 
 			<br> 
+			<br>
 			Several different recurrent network types were tested: RNN, LSTM, GRU, and BiLSTM. I found that using a convolutional network which feeds into 
 			a self-regulating recurrent network is the most performant and can achieve over 98 percent accuracy against validation data.
 			<br>
