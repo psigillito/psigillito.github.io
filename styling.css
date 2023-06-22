@@ -55,11 +55,14 @@
     width: 800px;
 }
   
-
-
 .fluidSection {
     color:#3b444b;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+iframe {
+    display: block;
+    border-style:none;
+    margin: 0 auto;
+}
 
